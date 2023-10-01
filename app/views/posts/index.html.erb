@@ -1,23 +1,22 @@
-<body>
-	<nav class="navbar">
-		<div class="navdiv">
-			<div class="logo"><a href="#">SOCIALBOOK</a> </div>
-			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Contact</a></li>
-				<li>
-        <% if user_signed_in? %>
-          <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
-        <% else %>
-          <p>You are not logged in.</p>
-        <% end %>
+
+<nav class="navbar">
+	<div class="navdiv">
+		<div class="logo"><a href="#">SOCIALBOOK</a> </div>
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Contact</a></li>
+		<li>
+            <% if user_signed_in? %>
+                <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
+            <% else %>
+                <p>You are not logged in.</p>
+            <% end %>
         </li>
-			</ul>
-		</div>
-	</nav>
-</body>
-</html>
+		</ul>
+	</div>
+</nav>
+
 
 
 <% if user_signed_in? %>
