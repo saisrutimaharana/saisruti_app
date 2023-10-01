@@ -1,0 +1,67 @@
+<body>
+	<nav class="navbar">
+		<div class="navdiv">
+			<div class="logo"><a href="#">SOCIALBOOK</a> </div>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+				<li>
+        <% if user_signed_in? %>
+          <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
+        <% else %>
+          <p>You are not logged in.</p>
+        <% end %>
+        </li>
+			</ul>
+		</div>
+	</nav>
+</body>
+</html>
+
+
+<% if user_signed_in? %>
+  <p>Logged in as: <%= current_user.email %></p>
+<% else %>
+  <p>You are not logged in.</p>
+<% end %>
+<div class="button">
+  <%= link_to 'Create post', new_post_path %>
+</div>
+  <% @posts.each do |post| %>
+    <div class="side">
+      <div class="post-container">
+        <div class="post">
+          <% if post.user.avatar? %>
+            <div class="avatar">
+              <%= image_tag post.user.avatar.url, class: "avatar" %>
+            </div>
+          <% else %>
+            <div class="default-avatar"><img src="https://www.pngarts.com/files/11/Avatar-PNG-Picture.png" alt="default-avatar" class="default-avatar"></div>
+          <% end %>
+          <div class="user-name">
+            <%= post.user.username %>
+          </div>
+          <br>
+          
+          <%= post.user.email %>
+          
+          
+          <p>
+          <% unless current_user == post.user %>
+            <% if current_user.following?(post.user) %>
+              <%= button_to 'Unfollow', friendship_path(post.user.id), method: :delete %>
+            <% else %>
+              <%= button_to 'Follow', friendships_path(post.user.id), method: :post %>
+            <% end %>
+          <% end %>
+          </p>
+        </div>
+        <h1><%= link_to post.content, post_path(post) %></h1>
+        <%= render 'post', post: post %>
+          
+      </div>
+    </div>
+   
+
+  <% end %>
