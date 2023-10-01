@@ -23,3 +23,4 @@ Things you may want to cover:
 
 * ...
 # saisruti_app
+# saisruti_post
